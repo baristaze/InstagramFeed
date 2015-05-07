@@ -109,19 +109,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 52
+        return 50
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let header = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.header") as! PhotoTableHeaderCell
-        
-        header.indentationLevel = 5
-        header.userPhotoView.frame = CGRect(x:0, y:0, width:50, height:50)
-        header.userNameView.frame = CGRect(x:52, y:0, width:268, height:50)
-        
-        header.userPhotoView.layer.cornerRadius = 25
-        header.userPhotoView.clipsToBounds = true
         
         let feedItem = self.photos[section] as! NSDictionary
         let userInfo = feedItem["user"] as! NSDictionary
@@ -154,7 +147,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var vc = segue.destinationViewController as! PhotoDetailsViewController
         var indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-        let feedItem = self.photos[indexPath!.row] as! NSDictionary
+        let feedItem = self.photos[indexPath!.section] as! NSDictionary
         let itemImages = feedItem["images"] as! NSDictionary
         let bigPhoto = itemImages["standard_resolution"] as! NSDictionary
         let bigPhotoUrl = bigPhoto["url"] as! String
