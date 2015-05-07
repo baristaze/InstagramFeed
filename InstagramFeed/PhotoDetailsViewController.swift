@@ -29,7 +29,7 @@ class PhotoDetailsViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell2", forIndexPath: indexPath) as! PhotoDetailsTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.detail.row", forIndexPath: indexPath) as! PhotoDetailsTableCell
         
         let url = NSURL(string: self.photoUrl!)
         cell.photoItemView.setImageWithURL(url)

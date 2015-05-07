@@ -32,7 +32,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 55))
         var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         loadingView.startAnimating()
         loadingView.center = tableFooterView.center
@@ -50,7 +50,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func loadMoreWithOptions(endRefreshing:Bool, removeFooter:Bool){
         
         self.queryInstagramWithCallback({(data:NSArray)->(Void) in
-            self.photos.addObjectsFromArray(data as [AnyObject])
+            
+            if(endRefreshing){
+                var all = NSMutableArray(array: data as [AnyObject])
+                all.addObjectsFromArray(self.photos as [AnyObject])
+                self.photos = all
+            }
+            else {
+                self.photos.addObjectsFromArray(data as [AnyObject])
+            }
+            
             self.tableView.reloadData()
             
             if(endRefreshing){
@@ -81,9 +90,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.DemoPrototypeCell", forIndexPath: indexPath) as! PhotoTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.row", forIndexPath: indexPath) as! PhotoTableViewCell
         
-        let feedItem = self.photos[indexPath.row] as! NSDictionary
+        let feedItem = self.photos[indexPath.section] as! NSDictionary
         let itemImages = feedItem["images"] as! NSDictionary
         let thumbnail = itemImages["thumbnail"] as! NSDictionary
         let thumbnailUrl = thumbnail["url"] as! String
@@ -91,7 +100,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         cell.photoItemView.setImageWithURL(url)
         
         var count = self.photos?.count ?? 0;
-        if(!self.infiniteLoadingStarted && indexPath.row == (count-1)){
+        if(!self.infiniteLoadingStarted && indexPath.section == (count-1)){
             self.tableView.tableFooterView = self.tableFooterView;
             self.loadMoreWithOptions(false, removeFooter: true);
         }
@@ -99,9 +108,41 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 52
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let header = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.header") as! PhotoTableHeaderCell
+        
+        header.indentationLevel = 5
+        header.userPhotoView.frame = CGRect(x:0, y:0, width:50, height:50)
+        header.userNameView.frame = CGRect(x:52, y:0, width:268, height:50)
+        
+        header.userPhotoView.layer.cornerRadius = 25
+        header.userPhotoView.clipsToBounds = true
+        
+        let feedItem = self.photos[section] as! NSDictionary
+        let userInfo = feedItem["user"] as! NSDictionary
+        let username = userInfo["username"] as! String
+        let profilePicUrl = userInfo["profile_picture"] as! String
+        let url = NSURL(string: profilePicUrl)
+        header.userPhotoView.setImageWithURL(url)
+        header.userNameView.text = username
+        
+        return header
+    }
+    
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.photos?.count ?? 0
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated:true)
