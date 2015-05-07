@@ -14,6 +14,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var refreshControl:UIRefreshControl!
     let clientId = "d654efc721c344908eb0ba443d52ac7f"
     
+    var infiniteLoadingStarted:Bool=false
+    var tableFooterView:UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     typealias onInstagramData = (NSArray) -> (Void)
@@ -29,16 +32,36 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
+        self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        loadingView.startAnimating()
+        loadingView.center = tableFooterView.center
+        
         self.photos = NSMutableArray()
         
-        self.queryInstagramWithCallback({(data:NSArray)->(Void) in
-            self.photos.addObjectsFromArray(data as [AnyObject])
-            self.tableView.reloadData()})
+        self.loadMoreWithOptions(false, removeFooter: false);
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    func loadMoreWithOptions(endRefreshing:Bool, removeFooter:Bool){
+        
+        self.queryInstagramWithCallback({(data:NSArray)->(Void) in
+            self.photos.addObjectsFromArray(data as [AnyObject])
+            self.tableView.reloadData()
+            
+            if(endRefreshing){
+                self.refreshControl.endRefreshing()
+            }
+            
+            if(removeFooter){
+                self.infiniteLoadingStarted = false;
+                self.tableFooterView.removeFromSuperview()
+            }
+        })
     }
     
     func queryInstagramWithCallback(callback:onInstagramData){
@@ -54,11 +77,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func onRefresh() {
-        self.queryInstagramWithCallback({(data:NSArray)->(Void) in
-            self.photos.addObjectsFromArray(data as [AnyObject])
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-        })
+        self.loadMoreWithOptions(true, removeFooter: false);
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,8 +88,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let thumbnail = itemImages["thumbnail"] as! NSDictionary
         let thumbnailUrl = thumbnail["url"] as! String
         let url = NSURL(string: thumbnailUrl)
-        
         cell.photoItemView.setImageWithURL(url)
+        
+        var count = self.photos?.count ?? 0;
+        if(!self.infiniteLoadingStarted && indexPath.row == (count-1)){
+            self.tableView.tableFooterView = self.tableFooterView;
+            self.loadMoreWithOptions(false, removeFooter: true);
+        }
+        
         return cell
     }
     
