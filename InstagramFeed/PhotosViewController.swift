@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController, UITableViewDataSource {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var photos:NSArray!
     
@@ -19,6 +19,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource {
         
         self.tableView.rowHeight = 320
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         
         // Do any additional setup after loading the view.
         var clientId = "d654efc721c344908eb0ba443d52ac7f"
@@ -53,14 +54,21 @@ class PhotosViewController: UIViewController, UITableViewDataSource {
         return self.photos?.count ?? 0
     }
     
-    /*
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated:true)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        var vc = segue.destinationViewController as! PhotoDetailsViewController
+        var indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        let feedItem = self.photos[indexPath!.row] as! NSDictionary
+        let itemImages = feedItem["images"] as! NSDictionary
+        let bigPhoto = itemImages["standard_resolution"] as! NSDictionary
+        let bigPhotoUrl = bigPhoto["url"] as! String
+        vc.photoUrl = bigPhotoUrl;
+        
     }
-    */
-
 }
