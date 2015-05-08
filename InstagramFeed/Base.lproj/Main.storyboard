@@ -105,6 +105,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoItemView" destination="ZEh-Y8-pzc" id="CCw-IY-sok"/>
+                                            <segue destination="PMv-JR-xC0" kind="modal" id="0Fy-NW-PKj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -120,6 +121,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fc9-7v-lHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1212" y="371"/>
+        </scene>
+        <!--Full Screen Photo View Controller-->
+        <scene sceneID="4gR-Pb-XPu">
+            <objects>
+                <viewController id="PMv-JR-xC0" customClass="FullScreenPhotoViewController" customModule="InstagramFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eOa-U1-Pmk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="3" id="rAe-3g-LKG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Q66-U6-2zd">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="photoView" destination="Q66-U6-2zd" id="23e-7C-pMH"/>
+                        <outlet property="scrollView" destination="rAe-3g-LKG" id="DEE-VG-cRs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3q2-lX-Tde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1652" y="371"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jBo-xe-h1I">

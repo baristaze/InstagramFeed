@@ -13,6 +13,7 @@
 		602DC2191AFB136800835A60 /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC2181AFB136800835A60 /* PhotoDetailsViewController.swift */; };
 		602DC21B1AFB16C300835A60 /* PhotoDetailsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC21A1AFB16C300835A60 /* PhotoDetailsTableCell.swift */; };
 		602DC21D1AFBF32600835A60 /* PhotoTableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC21C1AFBF32600835A60 /* PhotoTableHeaderCell.swift */; };
+		602DC21F1AFD440800835A60 /* FullScreenPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602DC21E1AFD440800835A60 /* FullScreenPhotoViewController.swift */; };
 		60D7E2751AFB017D00560DCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7E2741AFB017D00560DCA /* AppDelegate.swift */; };
 		60D7E27A1AFB017D00560DCA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60D7E2781AFB017D00560DCA /* Main.storyboard */; };
 		60D7E27C1AFB017D00560DCA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60D7E27B1AFB017D00560DCA /* Images.xcassets */; };
@@ -39,6 +40,7 @@
 		602DC2181AFB136800835A60 /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 		602DC21A1AFB16C300835A60 /* PhotoDetailsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsTableCell.swift; sourceTree = "<group>"; };
 		602DC21C1AFBF32600835A60 /* PhotoTableHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTableHeaderCell.swift; sourceTree = "<group>"; };
+		602DC21E1AFD440800835A60 /* FullScreenPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenPhotoViewController.swift; sourceTree = "<group>"; };
 		60D7E26F1AFB017D00560DCA /* InstagramFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D7E2731AFB017D00560DCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60D7E2741AFB017D00560DCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				602DC2181AFB136800835A60 /* PhotoDetailsViewController.swift */,
 				602DC21A1AFB16C300835A60 /* PhotoDetailsTableCell.swift */,
 				602DC21C1AFBF32600835A60 /* PhotoTableHeaderCell.swift */,
+				602DC21E1AFD440800835A60 /* FullScreenPhotoViewController.swift */,
 			);
 			path = InstagramFeed;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				602DC21D1AFBF32600835A60 /* PhotoTableHeaderCell.swift in Sources */,
 				602DC2121AFB059700835A60 /* PhotosViewController.swift in Sources */,
 				602DC2141AFB0A9E00835A60 /* PhotoTableViewCell.swift in Sources */,
+				602DC21F1AFD440800835A60 /* FullScreenPhotoViewController.swift in Sources */,
 				602DC21B1AFB16C300835A60 /* PhotoDetailsTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +424,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = InstagramFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "InstagramFeed/InstagramFeed-Bridging-Header.h";
@@ -434,6 +439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = InstagramFeed/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "InstagramFeed/InstagramFeed-Bridging-Header.h";
