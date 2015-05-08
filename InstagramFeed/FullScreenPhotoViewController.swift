@@ -12,6 +12,7 @@ class FullScreenPhotoViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var photoView: UIImageView!
+    @IBOutlet weak var closeButton: UIButton!
     
     var photoUrl:String?
     
@@ -19,6 +20,11 @@ class FullScreenPhotoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         self.scrollView.delegate = self
+        
+        let layer = self.closeButton.layer
+        layer.backgroundColor = UIColor(red:0.3, green: 0.3, blue:0.3, alpha:0.8).CGColor
+        layer.borderColor = UIColor.darkGrayColor().CGColor
+        layer.borderWidth = 1.0
         
         let url = NSURL(string: photoUrl!)
         self.photoView.setImageWithURL(url)
@@ -33,6 +39,10 @@ class FullScreenPhotoViewController: UIViewController, UIScrollViewDelegate {
         return self.photoView
     }
 
+    @IBAction func closeButtonClicked(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
