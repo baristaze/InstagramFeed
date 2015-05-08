@@ -32,7 +32,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        self.tableFooterView = UIView(frame: CGRect(x: 5, y: 5, width: 310, height: 55))
+        self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 55))
         var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         loadingView.startAnimating()
         loadingView.center = tableFooterView.center
@@ -91,6 +91,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.row", forIndexPath: indexPath) as! PhotoTableViewCell
+        cell.photoItemView.frame = CGRect(x:5, y:5, width:(cell.frame.width-10), height:(cell.frame.height-10))
         
         let feedItem = self.photos[indexPath.section] as! NSDictionary
         let itemImages = feedItem["images"] as! NSDictionary
@@ -116,7 +117,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let header = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.header") as! PhotoTableHeaderCell
         
-        header.userPhotoView.layer.cornerRadius = 25
+        header.userPhotoView.frame = CGRect(x:5, y:5, width:40, height:40)
+        
+        header.userPhotoView.layer.cornerRadius = 20
+        header.userPhotoView.layer.borderWidth = 1
+        header.userPhotoView.layer.borderColor = UIColor.lightGrayColor().CGColor
         header.userPhotoView.clipsToBounds = true
         
         let feedItem = self.photos[section] as! NSDictionary
