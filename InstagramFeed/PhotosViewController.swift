@@ -90,8 +90,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.row", forIndexPath: indexPath) as! PhotoTableViewCell
-        cell.photoItemView.frame = CGRect(x:5, y:5, width:(cell.frame.width-10), height:(cell.frame.height-10))
+        
+        cell.photoItemView.frame = CGRect(x:10, y:0, width:(cell.frame.width-20), height:(cell.frame.height-5))
+        
+        cell.photoItemView.layer.borderWidth = 1
+        cell.photoItemView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        
+        //cell.photoItemView.layer.cornerRadius = 1
+        //cell.photoItemView.clipsToBounds = true
         
         let feedItem = self.photos[indexPath.section] as! NSDictionary
         let itemImages = feedItem["images"] as! NSDictionary
@@ -117,12 +125,13 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let header = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.header") as! PhotoTableHeaderCell
         
-        header.userPhotoView.frame = CGRect(x:5, y:5, width:40, height:40)
+        header.userPhotoView.frame = CGRect(x:10, y:5, width:40, height:40)
         
         header.userPhotoView.layer.cornerRadius = 20
+        header.userPhotoView.clipsToBounds = true
+        
         header.userPhotoView.layer.borderWidth = 1
         header.userPhotoView.layer.borderColor = UIColor.lightGrayColor().CGColor
-        header.userPhotoView.clipsToBounds = true
         
         let feedItem = self.photos[section] as! NSDictionary
         let userInfo = feedItem["user"] as! NSDictionary
