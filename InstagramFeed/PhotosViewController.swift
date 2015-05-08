@@ -32,7 +32,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        self.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 55))
+        self.tableFooterView = UIView(frame: CGRect(x: 5, y: 5, width: 310, height: 55))
         var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         loadingView.startAnimating()
         loadingView.center = tableFooterView.center
@@ -115,6 +115,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let header = tableView.dequeueReusableCellWithIdentifier("com.codepath.insta.header") as! PhotoTableHeaderCell
+        
+        header.userPhotoView.layer.cornerRadius = 25
+        header.userPhotoView.clipsToBounds = true
         
         let feedItem = self.photos[section] as! NSDictionary
         let userInfo = feedItem["user"] as! NSDictionary
